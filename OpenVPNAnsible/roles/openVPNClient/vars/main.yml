@@ -1,5 +1,5 @@
 ---
 clients:
-  - client_name: surya
-  - client_name: sushil
+  - client_name: "enter client name here"
+  - client_name: "enter client name here"
 destination_key: "{{ playbook_dir }}"
