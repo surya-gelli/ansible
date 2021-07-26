@@ -51,28 +51,23 @@
     mode: '0755'
   
 - name: "Create client ovpn file"
-  vars:
-    client_name: 
-      - surya
-      - sushil
   shell: |
     cat {{ ansible_env.HOME }}/client-configs/base.conf >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name }}.ovpn
     echo  '<ca>' >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name }}.ovpn
-    cat {{ ansible_env.HOME }}/openvpn-ca/keys/ca.crt >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name  }}.ovpn
-    echo  '</ca>\n<cert>' >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name  }}.ovpn
-    cat {{ ansible_env.HOME }}/openvpn-ca/keys/{{ item.client_name }}.crt >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name  }}.ovpn
-    echo  '</cert>\n<key>' >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name  }}.ovpn
-    cat {{ ansible_env.HOME }}/openvpn-ca/keys/{{ item.client_name }}.key >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name  }}.ovpn
-    echo  '</key>\n<tls-auth>' >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name  }}.ovpn
-    cat {{ ansible_env.HOME }}/openvpn-ca/keys/ta.key >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name  }}.ovpn
-    echo  '</tls-auth>' >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name  }}.ovpn
+    cat {{ ansible_env.HOME }}/openvpn-ca/keys/ca.crt >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name }}.ovpn
+    echo  '</ca>\n<cert>' >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name }}.ovpn
+    cat {{ ansible_env.HOME }}/openvpn-ca/keys/{{ item.client_name }}.crt >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name }}.ovpn
+    echo  '</cert>\n<key>' >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name }}.ovpn
+    cat {{ ansible_env.HOME }}/openvpn-ca/keys/{{ item.client_name }}.key >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name }}.ovpn
+    echo  '</key>\n<tls-auth>' >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name }}.ovpn
+    cat {{ ansible_env.HOME }}/openvpn-ca/keys/ta.key >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name }}.ovpn
+    echo  '</tls-auth>' >> {{ ansible_env.HOME }}/client-configs/files/{{ item.client_name }}.ovpn
   loop: "{{ clients }}"
     
 
-
 - name: "Fetch client configurations"
   fetch:
-    src: "{{ ansible_env.HOME }}/client-configs/files/{{ item.client_name  }}.ovpn"
+    src: "{{ ansible_env.HOME }}/client-configs/files/{{ item.client_name }}.ovpn"
     dest: keys/
     flat: yes
   loop: "{{ clients }}"

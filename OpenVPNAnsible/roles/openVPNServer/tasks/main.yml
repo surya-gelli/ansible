@@ -5,6 +5,8 @@
     upgrade: "yes"
 
 - name: Install openvpn and easy-rsa
+  become: true
+  become_user: root
   package:
    name: "{{ item }}"
    state: present
